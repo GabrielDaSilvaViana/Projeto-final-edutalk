@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <!-- Definições de meta tags e título -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Talk</title>
+    
+    <!-- Importa arquivo CSS principal -->
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    
+    <!-- Importa ícones do Material Icons (Google) -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Importa CSS do painel de notas -->
+    <link rel="stylesheet" href="CSS/notes.css">
+</head>
+<body>
+    <!-- Container principal com grid layout -->
+    <div class="app-container">
+        
+        <!-- ====================================
+             SIDEBAR (MENU LATERAL)
+             ==================================== -->
+        <nav class="sidebar">
+            <!-- Logo com imagem + texto "EduTalk" -->
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="EduTalk" class="logo-img">
+                <span class="logo-text">EduTalk</span>
+            </div>
+            
+            <!-- Menu de navegação principal -->
+            <ul class="nav-menu">
+                <!-- Botão HOME (primeira página) -->
+                <li class="nav-item active">
+                    <span class="material-icons">home</span> 
+                    <span data-i18n="home">Home</span>
+                </li>
+                
+                <!-- Botão ACTIVE (usuários ativos) -->
+                <li class="nav-item" id="active-btn"> 
+                    <span class="material-icons">explore</span> 
+                    <span data-i18n="active">Active</span>
+                </li>
+                
+                <!-- Botão NOVA REUNIÃO (videocam) -->
+                <li class="nav-item">
+                    <span class="material-icons">videocam</span> 
+                    <span data-i18n="new_meeting">New Meeting</span>
+                </li>
+                
+                <!-- Botão CALENDÁRIO -->
+                <li class="nav-item" id="calendario-btn"> 
+                    <span class="material-icons">calendar_today</span> 
+                    <span data-i18n="calendar">Calendar</span>
+                </li>
+                
+                <!-- Botão ANOTAÇÕES -->
+                <li class="nav-item">
+                    <span class="material-icons">edit_note</span> 
+                    <span data-i18n="notes">Notes</span>
+                </li>
+            </ul>
+            
+            <!-- Botão MAIS (configurações) na base da sidebar -->
+            <div class="nav-more" id="more-btn">
+                <span class="material-icons">more_horiz</span> 
+                <span data-i18n="more">More</span>
+            </div>
+        </nav>
+        
+        <!-- ====================================
+             PAINEL DE CONVERSAS (CONVERSATIONS)
+             ==================================== -->
+        <aside class="conversations-panel">
+            <!-- Seção do perfil do usuário -->
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/40?u=deepak" alt="User Avatar" class="avatar">
+                <div class="user-info">
+                    <strong>Deepak</strong>
+                    <span data-i18n="you">(You)</span>
+                </div>
+                <span class="material-icons">chevron_right</span>
+            </div>
+            
+            <!-- Barra de busca -->
+            <div class="search-bar">
+                <input type="text" placeholder="Search People" data-i18n="search_people">
+                <span class="material-icons">search</span>
+            </div>
+            
+            <!-- Lista de contatos (grupos + usuários) -->
+            <div class="contact-list">
+                <!-- Seção de GRUPOS -->
+                <h3 class="list-title" data-i18n="group">#Group</h3>
+                <div class="contact-item active" data-name="Group 1" data-avatar="https://i.pravatar.cc/40?u=group1">
+                    <img src="https://i.pravatar.cc/40?u=group1" alt="Group 1 Avatar" class="avatar">
+                    <div class="contact-details"><strong>Group 1</strong></div>
+                    <span class="timestamp" data-i18n="yesterday">Yesterday</span>
+                </div>
+                <div class="contact-item" data-name="Group 2" data-avatar="https://i.pravatar.cc/40?u=group2">
+                    <img src="https://i.pravatar.cc/40?u=group2" alt="Group 2 Avatar" class="avatar">
+                    <div class="contact-details"><strong>Group 2</strong></div>
+                    <span class="timestamp" data-i18n="yesterday">Yesterday</span>
+                </div>
+
+                <!-- Seção de CHATS INDIVIDUAIS -->
+                <h3 class="list-title" data-i18n="chat">#Chat</h3>
+                
+                <!-- Usuario: Maria Silva -->
+                <div class="contact-item" data-name="Maria Silva" data-avatar="https://i.pravatar.cc/40?u=active1">
+                    <img src="https://i.pravatar.cc/40?u=active1" alt="Maria Silva Avatar" class="avatar">
+                    <div class="contact-details"><strong>Maria Silva</strong><span>Olá, tudo bem?</span></div>
+                    <span class="timestamp" data-i18n="today">Today</span>
+                </div>
+                
+                <!-- Usuario: Pedro Souza -->
+                <div class="contact-item" data-name="Pedro Souza" data-avatar="https://i.pravatar.cc/40?u=active2">
+                    <img src="https://i.pravatar.cc/40?u=active2" alt="Pedro Souza Avatar" class="avatar">
+                    <div class="contact-details"><strong>Pedro Souza</strong><span>Como vai?</span></div>
+                    <span class="timestamp" data-i18n="today">Today</span>
+                </div>
+                
+                <!-- Usuario: Ana Costa -->
+                <div class="contact-item" data-name="Ana Costa" data-avatar="https://i.pravatar.cc/40?u=active3">
+                    <img src="https://i.pravatar.cc/40?u=active3" alt="Ana Costa Avatar" class="avatar">
+                    <div class="contact-details"><strong>Ana Costa</strong><span>Hi! How are you</span></div>
+                    <span class="timestamp" data-i18n="monday">Monday</span>
+                </div>
+                
+                <!-- Usuario: Alex Johnson -->
+                <div class="contact-item" data-name="Alex Johnson" data-avatar="https://i.pravatar.cc/40?u=alex">
+                    <img src="https://i.pravatar.cc/40?u=alex" alt="Alex Johnson Avatar" class="avatar">
+                    <div class="contact-details"><strong>Alex Johnson</strong><span>Hey, how's it going?</span></div>
+                    <span class="timestamp" data-i18n="today">Today</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ====================================
+             JANELA PRINCIPAL DO CHAT
+             ==================================== -->
+        <main class="chat-window">
+
+            <!-- ====================================
+                 PAINEL DE ANOTAÇÕES (NOTES PANEL)
+                 ==================================== -->
+            <aside class="notes-panel" id="notes-panel" style="display:none;">
+                <header class="notes-header">
+                  <h3 data-i18n="notes_title">Anotações</h3>
+                  <button id="close-notes-btn">X</button>
+                </header>
+                <textarea id="notes-textarea" placeholder="Digite suas anotações aqui..." data-i18n="type_notes"></textarea>
+                <button id="save-notes-btn" data-i18n="save">Salvar</button>
+              </aside>
+              <!-- Header do chat com info de contato -->
+            <header class="chat-header">
+                <!-- Avatar + nome do contato -->
+                <div class="chat-contact-info">
+                    <img src="https://i.pravatar.cc/40?u=alex" alt="Alex Johnson Avatar" class="avatar" id="chat-avatar">
+                    <div class="user-info">
+                        <strong id="chat-name">Alex Johnson</strong>
+                    </div>
+                </div>
+                
+                <!-- Ícones de ação (busca, chamada, vídeo, mais) -->
+                <div class="chat-actions">
+                    <span class="material-icons">search</span>
+                    <span class="material-icons">call</span>
+                    <span class="material-icons">videocam</span>
+                    <span class="material-icons">more_vert</span>
+                </div>
+            </header>
+
+            <!-- Área onde as mensagens aparecem -->
+            <div class="message-area">
+                <!-- Divisor de data -->
+                <div class="message-date-divider"><span data-i18n="today">Hoje</span></div>
+
+                <!-- Mensagem recebida (alinhada esquerda, azul) -->
+                <div class="message received">
+                    <div class="message-bubble">Hey, how's it going?</div>
+                    <div class="message-time">09:00 AM</div>
+                </div>
+                
+                <!-- Mensagem enviada (alinhada direita, branca) -->
+                <div class="message sent">
+                    <div class="message-bubble">Hi Alex! I'm doing great, thanks!</div>
+                    <div class="message-time">09:05 AM</div>
+                </div>
+                
+                <!-- Outra mensagem recebida -->
+                <div class="message received">
+                    <div class="message-bubble">That's awesome! Let's catch up soon.</div>
+                    <div class="message-time">09:10 AM</div>
+                </div>
+            </div>
+
+            <!-- Footer com input de mensagem e botões -->
+            <footer class="chat-footer">
+                <div class="input-area">
+                    <!-- Botão anexar arquivo -->
+                    <span class="material-icons file-upload-btn" id="attach-btn" title="Anexar arquivo">attach_file</span>
+                    
+                    <!-- Botão enviar foto -->
+                    <span class="material-icons photo-upload-btn" id="photo-btn" title="Enviar foto">photo_camera</span>
+                    
+                    <!-- Botão enviar vídeo -->
+                    <span class="material-icons video-upload-btn" id="video-btn" title="Enviar vídeo">videocam</span>
+                    
+                    <!-- Input de texto para mensagem -->
+                    <input type="text" id="message-input" placeholder="Digite uma mensagem..." data-i18n="type_message">
+                    
+                    <!-- Ícones extras (emoji, @, microfone) -->
+                    <span class="material-icons">sentiment_satisfied_alt</span>
+                    <span class="material-icons">alternate_email</span>
+                    <span class="material-icons">mic</span>
+                    
+                    <!-- Inputs de arquivo escondidos (usados pelo JS) -->
+                    <input type="file" id="photo-input" accept="image/*" style="display: none;">
+                    <input type="file" id="video-input" accept="video/*" style="display: none;">
+                    <input type="file" id="file-input" style="display: none;">
+                </div>
+                
+                <!-- Botão enviar mensagem -->
+                <button class="send-button" id="send-button">
+                    <span class="material-icons">send</span>
+                </button>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ====================================
+         POPUP CALENDÁRIO (Modal)
+         ==================================== -->
+    <!-- Modal popup para visualizar e gerenciar eventos de calendário -->
+    <div class="calendario-popup" id="calendario-popup">
+        <!-- Header com navegação de mês (botões anterior/próximo e exibição do mês/ano) -->
+        <div class="calendario-header">
+            <button class="month-nav-btn" id="prev-month-btn">&lt;</button>
+            <!-- Será preenchido com mês e ano atual em formato texto (ex: "Janeiro 2024") -->
+            <h4 id="month-year"></h4>
+            <button class="month-nav-btn" id="next-month-btn">&gt;</button>
+        </div>
+        
+        <!-- Grid com dias da semana (cabeçalho fixo: Dom até Sáb) -->
+        <div class="calendario-grid">
+            <div class="weekday">Dom</div>
+            <div class="weekday">Seg</div>
+            <div class="weekday">Ter</div>
+            <div class="weekday">Qua</div>
+            <div class="weekday">Qui</div>
+            <div class="weekday">Sex</div>
+            <div class="weekday">Sáb</div>
+        </div>
+        
+        <!-- Grid com dias do mês (1-31, preenchido dinamicamente pelo JavaScript com números e classes de estilo) -->
+        <div class="calendario-grid" id="calendario-days-grid">
+        </div>
+        
+        <!-- Seção para CRIAR novo evento (inicialmente oculta, mostra ao clicar em um dia) -->
+        <div class="event-creation-section" id="event-creation-section" style="display: none;">
+            <!-- Exibe a data selecionada em formato legível (ex: "5 de janeiro de 2024") -->
+            <h4 id="selected-date-display"></h4>
+            <!-- Campo de horário do evento em formato HH:MM -->
+            <input type="time" id="event-time" placeholder="Horário">
+            <!-- Área de texto para descrever o evento -->
+            <textarea id="event-description" placeholder="Descrição do evento..."></textarea>
+            <!-- Botão para confirmar criação do evento e salvá-lo no localStorage -->
+            <button id="add-event-btn" class="event-btn">Adicionar Evento</button>
+            <!-- Botão para cancelar criação e voltar à visualização de eventos -->
+            <button id="cancel-event-btn" class="event-btn-cancel">Cancelar</button>
+        </div>
+        
+        <!-- Seção para LISTAR eventos do dia selecionado (inicialmente oculta, mostra após criação) -->
+        <div class="events-list-section" id="events-list-section" style="display: none;">
+            <!-- Título da seção de eventos -->
+            <h4>Eventos</h4>
+            <!-- Container onde os eventos do dia são listados e podem ser deletados -->
+            <div id="events-list"></div>
+        </div>
+    </div>
+
+    <!-- ====================================
+         POPUP PERFIL
+         ==================================== -->
+    <!-- Modal popup exibindo informações do usuário logado atualmente -->
+    <div class="profile-popup" id="profile-popup">
+        <!-- Header com ícone de fechar e título -->
+        <div class="popup-header">
+            <span class="material-icons close-popup" id="close-profile-btn">close</span>
+            <h2 data-i18n="profile">Perfil</h2>
+        </div>
+        <div class="popup-content">
+            <!-- Container com avatar do usuário em formato circular -->
+            <div class="profile-avatar">
+                <img src="https://i.pravatar.cc/150?u=deepak" alt="Avatar do Usuário">
+            </div>
+            
+            <!-- Informações básicas do usuário (nome e indicador de "você") -->
+            <div class="profile-info">
+                <h3>Deepak</h3>
+                <p>(Você)</p>
+            </div>
+            
+            <!-- Ações disponíveis do perfil (botão para abrir formulário de edição) -->
+            <div class="profile-actions">
+                <button class="popup-btn" id="edit-profile-btn" data-i18n="edit_profile">Editar Perfil</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================
+         POPUP EDITAR PERFIL
+         ==================================== -->
+    <!-- Modal popup com formulário para editar nome e avatar do usuário logado -->
+    <div class="edit-profile-popup" id="edit-profile-popup">
+        <!-- Header com ícone de fechar e título -->
+        <div class="popup-header">
+            <span class="material-icons close-popup" id="close-edit-profile-btn">close</span>
+            <h2 data-i18n="edit_profile">Editar Perfil</h2>
+        </div>
+        <div class="popup-content">
+            <!-- Campo de input para editar nome do usuário -->
+            <label for="edit-profile-name" data-i18n="edit_name">Nome:</label>
+            <input type="text" id="edit-profile-name" placeholder="Digite seu nome">
+            
+            <!-- Campo de input para editar URL do avatar (suporta URLs de imagens externas) -->
+            <label for="edit-profile-avatar" data-i18n="edit_avatar">URL do Avatar:</label>
+            <input type="text" id="edit-profile-avatar" placeholder="https://i.pravatar.cc/150?u=seu_usuario">
+            
+            <!-- Botão para salvar alterações de perfil no localStorage -->
+            <button class="popup-btn" id="save-edit-profile-btn" data-i18n="save_changes">Salvar Alterações</button>
+        </div>
+    </div>
+
+    <!-- ====================================
+         POPUP USUÁRIOS ATIVOS
+         ==================================== -->
+    <!-- Modal popup exibindo lista de usuários online, away ou offline com indicadores de status -->
+    <div class="active-popup" id="active-popup">
+        <!-- Header com título e ícone de fechar -->
+        <div class="active-popup-header">
+            <h3 class="active-popup-title" data-i18n="active_users">Usuários Ativos</h3>
+            <span class="material-icons close-popup" id="close-active-btn">close</span>
+        </div>
+        <!-- Container que será preenchido dinamicamente com grupos e usuários individuais -->
+        <div id="active-list-container" class="active-list-container">
+            <!-- Será preenchido dinamicamente pelo JS com estrutura: grupos e usuários dentro de cada grupo -->
+        </div>
+    </div>
+    
+    <!-- ====================================
+         POPUP CONFIGURAÇÕES (MORE)
+         ==================================== -->
+    <!-- Modal popup com configurações da aplicação (tema, idioma) e ação de logout -->
+    <div class="more-popup" id="more-popup" style="display: none;">
+        <!-- Header com ícone de fechar e título -->
+        <div class="popup-header">
+            <span class="material-icons close-popup" id="close-more-btn">close</span>
+            <h2 data-i18n="settings">Configurações</h2>
+        </div>
+        <div class="popup-content">
+            <!-- Seletor de tema (claro/escuro) - afeta a aparência visual da aplicação -->
+            <label for="theme-select" data-i18n="theme">Tema:</label>
+            <select id="theme-select">
+                <option value="light" data-i18n="light">Claro</option>
+                <option value="dark" data-i18n="dark">Escuro</option>
+            </select>
+            
+            <!-- Seletor de idioma (Português/Inglês) - muda textos via sistema i18n -->
+            <label for="language-select" data-i18n="language">Idioma:</label>
+            <select id="language-select">
+                <option value="pt" data-i18n="portuguese">Português</option>
+                <option value="en" data-i18n="english">Inglês</option>
+            </select>
+            
+            <!-- Botão para salvar configurações de tema e idioma no localStorage -->
+            <button class="popup-btn" id="save-more-settings-btn" data-i18n="save_settings">Salvar Configurações</button>
+            <!-- Botão para fazer logout (limpa dados de autenticação e redireciona para login) -->
+            <button class="popup-btn logout-btn" id="logout-btn-more" data-i18n="logout">Sair</button>
+        </div>
+    </div>
+    
+    <!-- ====================================
+         SCRIPTS EXTERNOS
+         ==================================== -->
+    <!-- Importações de arquivos JavaScript que controlam toda a lógica da aplicação -->
+    <!-- Sistema de internacionalização (tradução PT/EN) -->
+    <script src="JS/i18n.js"></script>
+    <!-- Sistema de autenticação (login/register/logout) -->
+    <script src="JS/auth.js"></script>
+    <!-- Gerenciamento de usuários e grupos -->
+    <script src="JS/user-manager.js"></script>
+    <!-- Sistema de eventos e persistência do calendário -->
+    <script src="JS/calendar-events.js"></script>
+    <!-- Sistema de notas (se implementado) -->
+    <script src="JS/notes.js"></script>
+    <!-- Lógica principal da dashboard (interações, eventos, interface) -->
+    <script src="JS/dashboard.js"></script>
+</body>
+</html>

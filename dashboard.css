@@ -1,0 +1,1147 @@
+/* Importa fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ====================================
+   VARIÁVEIS DE COR E ESTILO
+   ==================================== */
+/* Define cores principais usadas em toda a aplicação */
+:root {
+    --sidebar-bg: #6B89FF;              /* Azul do menu lateral */
+    --main-bg: #E4E9FF;                 /* Fundo azul claro */
+    --panel-bg: #FFD465;                /* Amarelo do painel de conversas */
+    --panel-active-item-bg: #FBC848;    /* Amarelo mais escuro para item ativo */
+    --header-bg: #FFD465;               /* Fundo do header do chat */
+    --button-send-bg: #333333;          /* Preto do botão enviar */
+    --text-light: #FFFFFF;              /* Texto branco */
+    --text-dark: #333333;               /* Texto escuro */
+    --text-secondary: #828282;          /* Texto cinza (secundário) */
+    --message-sent-bg: #FFFFFF;         /* Fundo da mensagem enviada */
+    --message-received-bg: #6B89FF;     /* Fundo da mensagem recebida */
+}
+
+/* ====================================
+   RESET E ESTILOS GLOBAIS
+   ==================================== */
+/* Garante que body ocupe 100% da altura para o Grid funcionar */
+html, body {
+    height: 100%; 
+    overflow: hidden; /* Remove barras de rolagem indesejadas */
+}
+
+/* Remove margens e padding padrões de todos elementos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Define fonte e cores padrão do body */
+body {
+    font-family: 'Poppins', sans-serif; /* Fonte principal */
+    background-color: var(--main-bg);   /* Fundo azul claro */
+    color: var(--text-dark);             /* Texto escuro */
+}
+
+/* ====================================
+   LAYOUT PRINCIPAL (GRID)
+   ==================================== */
+/* Container principal com 3 colunas: sidebar | conversations | chat */
+.app-container {
+    display: grid;
+    /* Largura coluna 1 = 170px (sidebar)
+       Largura coluna 2 = 320px (conversas)
+       Largura coluna 3 = restante (chat) */
+    grid-template-columns: 170px 320px 1fr;
+    width: 100%;                          /* Ocupa 100% da largura */
+    height: 100vh;                        /* Ocupa 100% da altura da viewport */
+    background-color: var(--text-light); /* Fundo branco */
+    overflow: hidden;                     /* Sem barras de rolagem */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra na borda */
+    position: relative;                   /* Base para posicionar popups absolutos */
+}
+
+/* ====================================
+   1. SIDEBAR (MENU LATERAL)
+   ==================================== */
+/* Barra de navegação lateral com botões */
+.sidebar {
+    background-color: var(--sidebar-bg); /* Fundo azul */
+    color: var(--text-light);             /* Texto branco */
+    padding: 20px 0;                      /* Espaçamento vertical */
+    display: flex;                        /* Layout em coluna */
+    flex-direction: column;
+    align-items: center;                  /* Centraliza itens */
+    z-index: 100;                         /* Fica acima de outros elementos */
+}
+
+/* Container do logo com imagem + texto */
+.logo-container {
+    display: flex;                        /* Logo e texto lado a lado */
+    align-items: center;
+    gap: 8px;                             /* Espaço entre imagem e texto */
+    margin-bottom: 40px;                  /* Espaço abaixo do logo */
+}
+
+/* Imagem do logo */
+.logo-img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;                  /* Mantém proporção da imagem */
+}
+
+/* Texto "EduTalk" ao lado da logo */
+.logo-text {
+    font-weight: 700;                     /* Negrito */
+    font-size: 1.2rem;
+    color: inherit;                       /* Herda cor do pai (branco) */
+}
+
+/* Menu de navegação */
+.nav-menu {
+    list-style: none;                     /* Remove pontos de lista */
+    width: 100%;
+}
+
+/* Cada item do menu */
+.nav-item {
+    display: flex;                        /* Ícone + texto lado a lado */
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;                      /* Mão ao passar */
+    font-size: 1rem;
+    color: var(--text-light);
+    max-width: 100%;
+}
+
+/* Texto dentro do nav-item (com truncamento) */
+.nav-item span {
+    white-space: nowrap;                  /* Impede quebra de linha */
+    overflow: hidden;                     /* Esconde texto que ultrapassa */
+    text-overflow: ellipsis;              /* Mostra "..." se texto muito longo */
+}
+
+/* Ícones do menu (Material Icons) */
+.nav-item span.material-icons {
+    font-size: 1.5rem;
+    color: var(--text-light);
+}
+
+/* Item ativo (com fundo diferente) */
+.nav-item.active {
+    background-color: var(--panel-active-item-bg); /* Fundo amarelo */
+    border-radius: 10px;
+}
+
+/* Hover dos itens (muda cor) */
+.nav-item.active, .nav-item:hover {
+    background-color: var(--panel-active-item-bg);
+    opacity: 1;
+}
+
+/* Botão "More" no final da sidebar */
+.sidebar .nav-more {
+    margin-top: auto;                     /* Empurra para baixo */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;               /* Ícone em cima, texto embaixo */
+    align-items: center;
+    font-size: 0.8rem;
+    gap: 5px;
+}
+
+/* ====================================
+   2. PAINEL DE CONVERSAS (CONVERSATIONS)
+   ==================================== */
+/* Painel lateral com lista de contatos */
+.conversations-panel {
+    background-color: var(--panel-bg);   /* Amarelo */
+    display: flex;
+    flex-direction: column;               /* Organiza itens em coluna */
+}
+
+/* Seção do perfil do usuário no topo */
+.user-profile {
+    display: flex;                        /* Avatar + info lado a lado */
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+/* Avatar em geral (redondo) */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;                   /* Circular */
+    object-fit: cover;                    /* Recorta imagem para quadrado */
+}
+
+/* Informações do usuário */
+.user-profile .user-info {
+    flex-grow: 1;
+}
+
+.user-info span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Barra de busca */
+.search-bar {
+    position: relative;
+    padding: 0 20px 20px 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Ícone de lupa na busca */
+.search-bar .material-icons {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    color: var(--text-secondary);
+}
+
+/* Container da lista de contatos */
+.contact-list {
+    overflow-y: auto;                     /* Rolagem vertical se necessário */
+    flex-grow: 1;                         /* Ocupa espaço disponível */
+    padding: 10px;
+}
+
+/* Cada item de contato na lista */
+.contact-item {
+    display: flex;                        /* Avatar + info + timestamp */
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    gap: 10px;
+    margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: background-color 0.3s ease;
+}
+
+/* Hover e active state */
+.contact-item.active, .contact-item:hover {
+    background-color: var(--panel-active-item-bg); /* Amarelo escuro */
+}
+
+/* Detalhes do contato (nome + última mensagem) */
+.contact-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-details strong {
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.contact-details span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Timestamp da conversa */
+.timestamp {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+/* ====================================
+   3. JANELA DE CHAT (CHAT WINDOW)
+   ==================================== */
+/* Container principal do chat */
+.chat-window {
+    background-color: var(--main-bg);   /* Fundo azul claro */
+    display: flex;
+    flex-direction: column;               /* Header, mensagens, footer em coluna */
+    height: 100%;
+    overflow: hidden;                     /* Sem scroll, filho gerencia */
+}
+
+/* Header do chat com info do contato */
+.chat-header {
+    background-color: var(--header-bg);  /* Amarelo */
+    display: flex;
+    justify-content: space-between;       /* Info à esquerda, ações à direita */
+    align-items: center;
+    padding: 15px 25px;
+    flex-shrink: 0;                       /* Não encolhe */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Informações do contato (avatar + nome + status) */
+.chat-contact-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.chat-contact-info .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Nome do contato no header */
+.chat-contact-info .contact-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Status do contato (online, ausente, etc) */
+.chat-contact-info .contact-status {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Ações do chat (ícones à direita) */
+.chat-actions {
+    display: flex;
+    gap: 20px;
+    color: var(--text-dark);
+}
+
+.chat-actions .material-icons {
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+.chat-actions .material-icons:hover {
+    color: var(--panel-active-item-bg); /* Fica amarelo ao passar */
+}
+
+/* Área onde as mensagens aparecem */
+.message-area {
+    flex-grow: 1;                         /* Ocupa espaço disponível */
+    padding: 20px;
+    overflow-y: auto;                     /* Scroll vertical */
+    display: flex;
+    flex-direction: column;               /* Mensagens em coluna */
+    gap: 10px;                            /* Espaço entre mensagens */
+}
+
+/* Divisor de data entre mensagens */
+.message-date-divider {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.message-date-divider span {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 5px 15px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Wrapper da mensagem */
+.message {
+    max-width: 60%;                       /* Não ocupa mais de 60% */
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;                /* Quebra palavras longas */
+}
+
+/* Bolha da mensagem (texto dentro) */
+.message-bubble {
+    padding: 1rem;
+    border-radius: 1.25rem;
+    line-height: 1.5;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Hora da mensagem */
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    white-space: nowrap;
+}
+
+/* Mensagem ENVIADA (alinhada à direita) */
+.message.sent {
+    align-self: flex-end;                 /* Alinha à direita */
+    align-items: flex-end;
+}
+
+.message.sent .message-bubble {
+    background-color: var(--message-sent-bg); /* Branco */
+    border-bottom-right-radius: 5px;     /* Canto afiado */
+}
+
+/* Mensagem RECEBIDA (alinhada à esquerda) */
+.message.received {
+    align-self: flex-start;               /* Alinha à esquerda */
+    align-items: flex-start;
+}
+
+.message.received .message-bubble {
+    background-color: var(--message-received-bg); /* Azul */
+    color: var(--text-light);             /* Texto branco */
+    border-bottom-left-radius: 5px;      /* Canto afiado */
+}
+
+/* Footer do chat (input + botões) */
+.chat-footer {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    background-color: var(--main-bg);
+    flex-shrink: 0;                       /* Não encolhe */
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Area com input e botões de upload */
+.input-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 15px;
+    flex-grow: 1;                         /* Ocupa espaço disponível */
+    color: var(--text-secondary);
+}
+
+.input-area span:first-child { color: var(--sidebar-bg); } 
+.input-area span:nth-child(2) { font-weight: bold; color: var(--text-dark); } 
+
+/* Botões de upload (arquivo, foto, vídeo) */
+.file-upload-btn,
+.photo-upload-btn,
+.video-upload-btn {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--sidebar-bg) !important;
+    font-size: 1.2rem;
+}
+
+.file-upload-btn:hover,
+.photo-upload-btn:hover,
+.video-upload-btn:hover {
+    transform: scale(1.2);                /* Aumenta ao passar */
+    color: #5a77e0 !important;
+}
+
+/* Botão de enviar mensagem */
+.send-button {
+    background-color: var(--button-send-bg); /* Preto */
+    color: var(--text-light);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;                   /* Circular */
+    margin-left: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+/* ====================================
+   4. POPUP ACTIVE (USUÁRIOS ATIVOS)
+   ==================================== */
+/* Popup que mostra grupos e usuários online */
+.active-popup {
+    display: none;                        /* Começa escondido */
+    position: absolute;
+    top: 0; 
+    left: 180px;
+    width: 320px; 
+    height: 100vh;
+    background-color: var(--panel-bg);   /* Amarelo */
+    border-radius: 0; 
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 999; 
+    overflow-y: auto;
+    padding: 0; 
+    flex-direction: column;
+}
+
+/* Mostra popup quando tem classe .show */
+.active-popup.show {
+    display: flex;
+}
+
+/* Header do popup Active */
+.active-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--sidebar-bg) 0%, #5a77e0 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.active-popup-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+/* Botão fechar no popup */
+.active-popup-header .close-popup {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.active-popup-header .close-popup:hover {
+    transform: rotate(90deg);             /* Rotaciona ao passar */
+}
+
+/* Container da lista de ativos */
+.active-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Seção dentro do popup (grupos ou usuários) */
+.active-section {
+    margin-bottom: 0;
+}
+
+/* Título de cada seção */
+.active-section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 12px 20px;
+    color: var(--text-secondary);
+    background-color: rgba(107, 137, 255, 0.1);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Cada item (grupo ou usuário) */
+.active-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    gap: 12px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.active-item:hover {
+    background-color: rgba(107, 137, 255, 0.15); /* Azul ao passar */
+    transform: translateX(5px);           /* Move para direita */
+}
+
+/* Estilo especial para grupos */
+.group-item {
+    background-color: rgba(251, 200, 72, 0.2);
+    border-left: 3px solid var(--panel-active-item-bg);
+}
+
+.group-item:hover {
+    background-color: rgba(251, 200, 72, 0.4);
+}
+
+.group-members {
+    font-size: 0.75rem !important;
+    color: var(--text-secondary) !important;
+}
+
+/* Estilo especial para usuários */
+.user-item {
+    position: relative;
+}
+
+/* Badge de status (Online, Ausente, Offline) */
+.status-badge {
+    font-size: 0.75rem !important;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: inline-block !important;
+}
+
+.status-online .status-badge {
+    background-color: #2ecc71;            /* Verde */
+    color: white;
+}
+
+.status-away .status-badge {
+    background-color: #f39c12;            /* Laranja */
+    color: white;
+}
+
+.status-offline .status-badge {
+    background-color: #95a5a6;            /* Cinza */
+    color: white;
+}
+
+/* Indicador de status (ponto colorido) */
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: auto;
+}
+
+.status-indicator.status-online {
+    background-color: #2ecc71;
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.6);
+}
+
+.status-indicator.status-away {
+    background-color: #f39c12;
+    box-shadow: 0 0 5px rgba(243, 156, 18, 0.6);
+}
+
+.status-indicator.status-offline {
+    background-color: #95a5a6;
+}
+
+/* Info do ativo (nome + status) */
+.active-info {
+    line-height: 1.2;
+    flex-grow: 1;
+}
+
+.active-info strong {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.active-info span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: block;
+}
+
+/* ============================================
+   STYLES PARA MORE POPUP (CONFIGURAÇÕES)
+   ============================================ */
+
+.more-popup {
+    display: none; 
+    position: absolute;
+    top: 0; 
+    left: 180px;
+    width: 320px; 
+    height: 100vh;
+    background-color: var(--panel-bg); 
+    border-radius: 0 0 0 0; 
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 999; 
+    overflow-y: auto;
+    padding: 0; 
+    flex-direction: column;
+}
+
+.more-popup.show {
+    display: flex;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--sidebar-bg) 0%, #5a77e0 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.popup-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+}
+
+.popup-header .close-popup {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: white;
+    transition: all 0.3s ease;
+    order: -1;
+    margin-right: 15px;
+}
+
+.popup-header .close-popup:hover {
+    transform: rotate(90deg);
+}
+
+.popup-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+.popup-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.popup-item:hover {
+    background-color: rgba(107, 137, 255, 0.15);
+    transform: translateX(5px);
+}
+
+.popup-item .material-icons {
+    color: var(--sidebar-bg);
+    font-size: 1.3rem;
+}
+
+/* Avatar styling for both popups */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(107, 137, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.active-item:hover .avatar,
+.popup-item:hover .avatar {
+    border-color: var(--sidebar-bg);
+    box-shadow: 0 0 8px rgba(107, 137, 255, 0.4);
+}
+
+/* Ajuste para os botões e áreas de texto */
+.popup-content input, .popup-content select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--text-secondary);
+    background-color: var(--main-bg);
+    color: var(--text-dark);
+    box-sizing: border-box; /* Garante que o padding não ultrapasse os limites */
+}
+
+.popup-content label {
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap; /* Impede quebra de linha */
+}
+
+.popup-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--sidebar-bg);
+    color: var(--text-light);
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    max-width: 100%; /* Define um limite máximo para o botão */
+}
+
+.popup-btn:hover {
+    background-color: var(--panel-active-item-bg);
+}
+
+/* Ajuste para o título do pop-up */
+.popup-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    white-space: nowrap; /* Impede quebra de linha */
+    overflow: hidden; /* Esconde texto que ultrapassa o limite */
+    text-overflow: ellipsis; /* Adiciona "..." ao final do texto */
+}
+
+/* ====================================
+   5. POPUP CALENDÁRIO
+   ==================================== */
+/* Popup do calendário (modal no centro) */
+.calendario-popup {
+    display: none;                        /* Começa escondido */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);    /* Centraliza */
+    width: 320px;
+    background-color: var(--panel-bg);  /* Amarelo */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    color: var(--text-dark);
+}
+
+/* Mostra quando tem classe .show */
+.calendario-popup.show {
+    display: block;
+}
+
+/* Header do calendário (mês/ano + botões) */
+.calendario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#month-year {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Botões próximo/anterior mês */
+.month-nav-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-dark);
+    padding: 0 10px;
+}
+
+/* Grid com os dias da semana */
+.calendario-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+}
+
+/* Cabeçalho com dias da semana */
+.weekday {
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding-bottom: 10px;
+}
+
+/* Cada dia do mês */
+.day {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+
+.day:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Dias de outro mês (cinzas) */
+.day.other-month {
+    color: var(--text-secondary); 
+    opacity: 0.6;
+}
+
+/* Dia atual (destaque azul) */
+.day.current-day {
+    background-color: var(--sidebar-bg);
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+/* Dia selecionado (destaque preto) */
+.day.selected-day {
+    background-color: var(--text-dark);
+    color: var(--text-light);
+}
+
+/* Dias com eventos (borda) */
+.day.has-events {
+    box-shadow: inset 0 0 5px rgba(107, 137, 255, 0.5);
+    border: 2px solid var(--sidebar-bg);
+}
+
+/* Estilos para criação de eventos */
+.event-creation-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.event-creation-section h4 {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+#event-time {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#event-description {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    min-height: 60px;
+    resize: vertical;
+}
+
+.event-btn {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--sidebar-bg);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.event-btn:hover {
+    background-color: #5a77e0;
+    transform: translateY(-2px);
+}
+
+.event-btn-cancel {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: #999;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.event-btn-cancel:hover {
+    background-color: #777;
+}
+
+/* Estilos para lista de eventos */
+.events-list-section {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.events-list-section h4 {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.event-item {
+    background-color: white;
+    border-left: 3px solid var(--sidebar-bg);
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.event-time {
+    font-weight: 700;
+    color: var(--sidebar-bg);
+    font-size: 0.85rem;
+    min-width: 50px;
+}
+
+.event-desc {
+    flex: 1;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    word-wrap: break-word;
+}
+
+.event-delete-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+/* Estilo do botão delete com efeito hover (vermelho mais escuro e zoom in) */
+.event-delete-btn:hover {
+    color: #c0392b;
+    transform: scale(1.2);
+}
+
+/* Botão para adicionar mais eventos com estilo dashed (tracejado) e fundo transparente */
+.event-add-more-btn {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px dashed var(--sidebar-bg);
+    background-color: transparent;
+    color: var(--sidebar-bg);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Efeito hover do botão add: fundo azul translúcido */
+.event-add-more-btn:hover {
+    background-color: rgba(107, 137, 255, 0.1);
+}
+
+/* ====================================
+   ESTILOS DOS POP-UPS (Modais)
+   ==================================== */
+
+/* Estilos comuns para todos os pop-ups: centralizados, com sombra e fundo escuro/claro conforme tema */
+.profile-popup, .edit-profile-popup, .settings-popup, .more-popup {
+    display: none; /* Inicialmente escondido */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: var(--main-bg);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+    color: var(--text-dark);
+}
+
+/* Header do pop-up com ícone de fechar no lado direito */
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.popup-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Ícone de fechar (X) com estilo responsivo e transição suave */
+.close-popup {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+}
+
+/* Container do conteúdo do pop-up com flex layout vertical e espaçamento */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels dos campos de formulário dentro do pop-up */
+.popup-content label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Campos de entrada e seleção com bordas suaves e fundo branco */
+.popup-content input, .popup-content select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--text-secondary);
+    background-color: #FFFFFF;
+}
+
+/* Botões do pop-up com cor azul padrão e hover mais escuro */
+.popup-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--sidebar-bg);
+    color: var(--text-light);
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Efeito hover dos botões do pop-up (cor mais clara/ativa) */
+.popup-btn:hover {
+    background-color: var(--panel-active-item-bg);
+}
+
+/* ====================================
+   ESTILOS DO PERFIL
+   ==================================== */
+
+/* Avatar circular do usuário com sombra suave */
+.profile-avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título do nome do usuário no perfil */
+.profile-info h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Subtexto "(Você)" abaixo do nome no perfil */
+.profile-info p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ====================================
+   ESTILOS ESPECIAIS DOS BOTÕES
+   ==================================== */
+
+/* Estilo para botões especiais no popup */
+/* Botão de logout com cor vermelha para ação destrutiva/importante */
+.popup-btn.logout-btn {
+    background-color: #e74c3c;
+    margin-top: 10px;
+}
+
+/* Efeito hover do logout: vermelho mais escuro */
+.popup-btn.logout-btn:hover {
+    background-color: #c0392b;
+}

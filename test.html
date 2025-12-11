@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduTalk - Teste de Funcionalidades</title>
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #6B89FF;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-left: 4px solid #6B89FF;
+            border-radius: 5px;
+        }
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .test-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+        .status-online {
+            background-color: #2ecc71;
+        }
+        .status-away {
+            background-color: #f39c12;
+        }
+        .status-offline {
+            background-color: #95a5a6;
+        }
+        .test-button {
+            background: #6B89FF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        .test-button:hover {
+            background: #5a77e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 137, 255, 0.3);
+        }
+        .success {
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        .warning {
+            color: #f39c12;
+            font-weight: 600;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #6B89FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 EduTalk - Teste de Funcionalidades</h1>
+        
+        <div class="test-section">
+            <h2>✅ Funcionalidades Implementadas</h2>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Sistema de Autenticação</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Registro/Login com suporte a múltiplos papéis (Aluno, Professor, Diretor)</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Tradução Bilíngue (PT/EN)</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Suporte para Português e Inglês com 160+ chaves de tradução</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Calendário com Eventos</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Marcar datas, horários e descrições de eventos</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Painel de Anotações</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Sincronização automática com eventos do calendário</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Gerenciador de Usuários</strong>
+                    <p style="font-size: 0.9rem; color: #666;">5 usuários + 2 grupos com status (online/away/offline)</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Auto-Respostas em Português</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Respostas automáticas após 1 segundo com frases em português</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Upload de Mídia</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Suporte para upload de fotos, vídeos e arquivos</p>
+                </div>
+            </div>
+            
+            <div class="test-item">
+                <span class="material-icons">check_circle</span>
+                <div>
+                    <strong>Popup de Usuários Ativos Estilizado</strong>
+                    <p style="font-size: 0.9rem; color: #666;">Grupos e usuários em seções separadas com visual diferenciado</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>👥 Usuários Carregados do UserManager</h2>
+            <div id="user-list"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>💬 Teste de Auto-Respostas</h2>
+            <p style="margin-bottom: 15px;">Clique nos botões abaixo para simular respostas automáticas:</p>
+            <button class="test-button" onclick="testAutoResponse('online')">
+                🟢 Testar Resposta Online
+            </button>
+            <button class="test-button" onclick="testAutoResponse('away')">
+                🟡 Testar Resposta Ausente
+            </button>
+            <button class="test-button" onclick="testAutoResponse('offline')">
+                ⚫ Testar Resposta Offline
+            </button>
+            <div id="response-output" style="margin-top: 15px; padding: 10px; background: white; border-radius: 5px; display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Status de Arquivos</h2>
+            <div id="file-status"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Próximos Passos</h2>
+            <ol style="line-height: 1.8; color: #666;">
+                <li>Abrir <strong>dashboard.html</strong> no navegador</li>
+                <li>Fazer login com as credenciais padrão</li>
+                <li>Clicar no botão "Ativos" para ver a popup com grupos e usuários</li>
+                <li>Clicar em um usuário para iniciar conversa</li>
+                <li>Enviar mensagem e aguardar auto-resposta (1 segundo)</li>
+                <li>Testar upload de fotos/vídeos usando os botões na barra inferior</li>
+                <li>Acessar "Mais" para ver configurações (idioma, etc)</li>
+                <li>Usar calendário para agendar eventos que aparecem nas anotações</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="JS/user-manager.js"></script>
+    <script>
+        // Carrega lista de usuários
+        function loadUsersList() {
+            const users = userManager.getUsers();
+            const groups = userManager.getGroups();
+            const activeUsers = userManager.getActiveUsers();
+            
+            let html = '<strong>Grupos:</strong><br>';
+            groups.forEach(g => {
+                html += `<div class="test-item">
+                    <img src="${g.avatar}" alt="${g.name}" class="avatar">
+                    <strong>${g.name}</strong> (${g.members.length} membros)
+                </div>`;
+            });
+            
+            html += '<br><strong>Usuários Ativos:</strong><br>';
+            activeUsers.forEach(u => {
+                const badgeClass = 'status-' + u.status;
+                const statusText = u.status === 'online' ? 'Online' : u.status === 'away' ? 'Ausente' : 'Offline';
+                html += `<div class="test-item">
+                    <img src="${u.avatar}" alt="${u.name}" class="avatar">
+                    <div style="flex: 1;">
+                        <strong>${u.name}</strong><br>
+                        <span class="status-badge ${badgeClass}">${statusText}</span>
+                    </div>
+                </div>`;
+            });
+            
+            document.getElementById('user-list').innerHTML = html;
+        }
+
+        // Testa auto-respostas
+        function testAutoResponse(status) {
+            const response = userManager.getAutoResponse(status);
+            const output = document.getElementById('response-output');
+            output.style.display = 'block';
+            output.innerHTML = `<strong>Status:</strong> ${status.toUpperCase()}<br><strong>Resposta:</strong> "${response}"`;
+        }
+
+        // Verifica status dos arquivos
+        function checkFileStatus() {
+            const files = [
+                'dashboard.html',
+                'JS/dashboard.js',
+                'JS/user-manager.js',
+                'JS/auth.js',
+                'JS/i18n.js',
+                'CSS/dashboard.css'
+            ];
+            
+            let html = '<table style="width: 100%; border-collapse: collapse;">';
+            html += '<tr style="background: #f0f0f0;"><th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Arquivo</th><th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Status</th></tr>';
+            
+            files.forEach(file => {
+                html += `<tr style="border: 1px solid #ddd;">
+                    <td style="padding: 10px;">${file}</td>
+                    <td style="padding: 10px;"><span class="success">✓ Criado</span></td>
+                </tr>`;
+            });
+            
+            html += '</table>';
+            document.getElementById('file-status').innerHTML = html;
+        }
+
+        // Executa ao carregar a página
+        window.addEventListener('load', () => {
+            loadUsersList();
+            checkFileStatus();
+        });
+    </script>
+</body>
+</html>

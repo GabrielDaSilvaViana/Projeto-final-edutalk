@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Teste - EduTalk</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6B89FF 0%, #5a77e0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #6B89FF 0%, #5a77e0 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #6B89FF;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title .material-icons {
+            color: #6B89FF;
+            font-size: 2rem;
+        }
+        
+        .test-card {
+            background: #f9f9f9;
+            border-left: 4px solid #6B89FF;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-card:hover {
+            background: #f0f0f0;
+            box-shadow: 0 4px 12px rgba(107, 137, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .test-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .test-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .test-card ol, .test-card ul {
+            margin-left: 20px;
+            margin-top: 10px;
+            color: #666;
+        }
+        
+        .test-card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .status-success {
+            background: #2ecc71;
+            color: white;
+        }
+        
+        .status-warning {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .status-testing {
+            background: #3498db;
+            color: white;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .feature-item {
+            background: linear-gradient(135deg, #6B89FF 0%, #5a77e0 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-item .material-icons {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-item h4 {
+            margin-bottom: 5px;
+        }
+        
+        .feature-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6B89FF 0%, #5a77e0 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 137, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #6B89FF;
+        }
+        
+        .btn-secondary:hover {
+            background: #6B89FF;
+            color: white;
+        }
+        
+        .code-block {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .footer {
+            background: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 EduTalk - Guia de Teste</h1>
+            <p>Funcionalidades Implementadas e Testes Recomendados</p>
+        </div>
+        
+        <div class="content">
+            <!-- Seção 1: Features Implementadas -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">check_circle</span>
+                    Funcionalidades Implementadas
+                </h2>
+                
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="material-icons">home</span>
+                        <h4>Home com Contatos</h4>
+                        <p>Clique nos grupos/usuários para iniciar conversa</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons">explore</span>
+                        <h4>Active Users</h4>
+                        <p>Veja quem está online, ausente ou offline</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons">calendar_today</span>
+                        <h4>Calendário</h4>
+                        <p>Marque eventos e sincronize com anotações</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons">edit_note</span>
+                        <h4>Anotações</h4>
+                        <p>Tome notas e veja eventos agendados</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons">photo_camera</span>
+                        <h4>Upload de Mídia</h4>
+                        <p>Envie fotos, vídeos e arquivos</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="material-icons">language</span>
+                        <h4>Bilíngue</h4>
+                        <p>Português e Inglês (no More menu)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Seção 2: Testes - Home e Contatos -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">home</span>
+                    Teste 1: Home e Seleção de Contatos
+                </h2>
+                
+                <div class="test-card">
+                    <h3>✅ Objetivo</h3>
+                    <p>Verificar se clicar nos grupos e usuários muda a conversa corretamente</p>
+                    <span class="status-badge status-testing">Sendo Testado</span>
+                </div>
+                
+                <div class="test-card">
+                    <h3>📋 Passos de Teste</h3>
+                    <ol>
+                        <li>Abra <strong>dashboard.html</strong> no navegador</li>
+                        <li>Faça login com: <code>teste@teste.com</code> / <code>senha123</code></li>
+                        <li>Na seção <strong>#Group</strong>, clique em <strong>"Group 1"</strong></li>
+                        <li>Verifique se o nome e avatar no header da conversa mudaram</li>
+                        <li>Clique em <strong>"Group 2"</strong> e verifique a mudança</li>
+                        <li>Na seção <strong>#Chat</strong>, clique em <strong>"Alex Johnson"</strong></li>
+                        <li>Verifique se o header agora mostra "Alex Johnson"</li>
+                        <li>Clique em <strong>"Mehak"</strong> e repita a verificação</li>
+                    </ol>
+                </div>
+                
+                <div class="test-card">
+                    <h3>🎯 Resultado Esperado</h3>
+                    <ul>
+                        <li>Cada contato clicado deve destacar em azul (classe "active")</li>
+                        <li>O avatar do header deve corresponder ao contato selecionado</li>
+                        <li>O nome do header deve corresponder ao contato selecionado</li>
+                        <li>A área de conversa deve limpar e mostrar uma mensagem inicial</li>
+                        <li>Auto-respostas devem funcionar (após 1 segundo de digitação)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Seção 3: Testes - Active -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">explore</span>
+                    Teste 2: Active Users (Apenas Visualização)
+                </h2>
+                
+                <div class="test-card">
+                    <h3>✅ Objetivo</h3>
+                    <p>Verificar se a popup de usuários ativos mostra informações sem permitir seleção</p>
+                    <span class="status-badge status-testing">Sendo Testado</span>
+                </div>
+                
+                <div class="test-card">
+                    <h3>📋 Passos de Teste</h3>
+                    <ol>
+                        <li>Na sidebar, clique no ícone <strong>"Active"</strong> (explore)</li>
+                        <li>Uma popup deve aparecer no lado esquerdo mostrando:</li>
+                        <li style="margin-left: 30px;">
+                            <strong>GRUPOS:</strong> Group 1 (2 membros) e Group 2 (1 membro)
+                        </li>
+                        <li style="margin-left: 30px;">
+                            <strong>USUÁRIOS:</strong> Maria Silva (Online), Pedro Souza (Ausente), Ana Costa (Online)
+                        </li>
+                        <li>Clique em um usuário ou grupo na popup</li>
+                        <li>Verifique que <strong>NÃO</strong> muda a conversa (comportamento diferente do Home)</li>
+                        <li>Clique no X no topo da popup para fechar</li>
+                        <li>Clique novamente em "Active" para reabrir</li>
+                    </ol>
+                </div>
+                
+                <div class="test-card">
+                    <h3>🎯 Resultado Esperado</h3>
+                    <ul>
+                        <li>Popup mostra 2 seções: GRUPOS e USUÁRIOS</li>
+                        <li>Grupos têm fundo amarelo suave e mostram contagem de membros</li>
+                        <li>Usuários mostram indicador de status com cor (verde/laranja/cinza)</li>
+                        <li>Usuários mostram badge de status (Online/Ausente/Offline)</li>
+                        <li>Clicar em um item NÃO muda a conversa ativa</li>
+                        <li>Botão X fecha a popup corretamente</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Seção 4: Testes - Mensagens -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">chat</span>
+                    Teste 3: Mensagens e Auto-Respostas
+                </h2>
+                
+                <div class="test-card">
+                    <h3>✅ Objetivo</h3>
+                    <p>Verificar se as mensagens são enviadas e recebem auto-respostas em português</p>
+                    <span class="status-badge status-testing">Sendo Testado</span>
+                </div>
+                
+                <div class="test-card">
+                    <h3>📋 Passos de Teste</h3>
+                    <ol>
+                        <li>Selecione um usuário ou grupo do Home</li>
+                        <li>No campo de mensagem, digite: <code>Olá! Como vai?</code></li>
+                        <li>Pressione Enter ou clique no botão "send"</li>
+                        <li>A mensagem deve aparecer em azul (lado direito - "sent")</li>
+                        <li>Aguarde 1 segundo</li>
+                        <li>Uma resposta automática deve aparecer em cinza (lado esquerdo - "received")</li>
+                        <li>Verifique se a resposta está em português (ex: "Olá! Tudo bem?")</li>
+                        <li>Teste com múltiplos usuários - cada um deve ter respostas diferentes</li>
+                    </ol>
+                </div>
+                
+                <div class="test-card">
+                    <h3>🎯 Resultado Esperado</h3>
+                    <ul>
+                        <li>Mensagens enviadas aparecem em azul no lado direito</li>
+                        <li>Respostas automáticas aparecem em cinza no lado esquerdo</li>
+                        <li>Há um delay de ~1 segundo antes da resposta</li>
+                        <li>Respostas são em português autêntico (não tradução)</li>
+                        <li>Diferentes usuários podem ter diferentes respostas</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Seção 5: Testes - Upload -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">photo_camera</span>
+                    Teste 4: Upload de Mídia
+                </h2>
+                
+                <div class="test-card">
+                    <h3>✅ Objetivo</h3>
+                    <p>Verificar se os botões de upload funcionam corretamente</p>
+                    <span class="status-badge status-testing">Sendo Testado</span>
+                </div>
+                
+                <div class="test-card">
+                    <h3>📋 Passos de Teste</h3>
+                    <ol>
+                        <li>Na barra inferior, procure pelos 3 ícones de upload:</li>
+                        <li style="margin-left: 30px;"><strong>📎</strong> (Anexar Arquivo)</li>
+                        <li style="margin-left: 30px;"><strong>📷</strong> (Foto)</li>
+                        <li style="margin-left: 30px;"><strong>🎥</strong> (Vídeo)</li>
+                        <li>Clique no ícone de foto e selecione uma imagem do computador</li>
+                        <li>Uma mensagem deve aparecer: "📷 Foto enviada: [nome do arquivo]"</li>
+                        <li>Repita para vídeo e arquivo</li>
+                    </ol>
+                </div>
+                
+                <div class="test-card">
+                    <h3>🎯 Resultado Esperado</h3>
+                    <ul>
+                        <li>Ao clicar em cada ícone, um diálogo de seleção de arquivo abre</li>
+                        <li>Foto: aceita arquivos image/* (jpg, png, gif, etc)</li>
+                        <li>Vídeo: aceita arquivos video/* (mp4, webm, etc)</li>
+                        <li>Arquivo: aceita qualquer arquivo</li>
+                        <li>Após seleção, uma mensagem é exibida na conversa</li>
+                        <li>Um toast de sucesso aparece no topo</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Seção 6: Testes - Calendário -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">calendar_today</span>
+                    Teste 5: Calendário e Eventos
+                </h2>
+                
+                <div class="test-card">
+                    <h3>✅ Objetivo</h3>
+                    <p>Verificar se o calendário permite agendar eventos que sincronizam com anotações</p>
+                    <span class="status-badge status-testing">Sendo Testado</span>
+                </div>
+                
+                <div class="test-card">
+                    <h3>📋 Passos de Teste</h3>
+                    <ol>
+                        <li>Na sidebar, clique em "Calendar" (calendário)</li>
+                        <li>Uma popup de calendário deve abrir mostrando o mês atual</li>
+                        <li>Clique em qualquer data futura</li>
+                        <li>Preencha: Horário e Descrição do evento</li>
+                        <li>Clique em "Adicionar Evento"</li>
+                        <li>O evento deve aparecer na lista</li>
+                        <li>Clique em "Notes" para ver o evento nas anotações</li>
+                    </ol>
+                </div>
+                
+                <div class="test-card">
+                    <h3>🎯 Resultado Esperado</h3>
+                    <ul>
+                        <li>Calendário exibe mês e ano atuais</li>
+                        <li>Datas com eventos têm indicador visual</li>
+                        <li>Ao clicar em data vazia, formulário de novo evento aparece</li>
+                        <li>Ao clicar em data com evento, lista de eventos aparece</li>
+                        <li>Eventos aparecem nas anotações com formatação</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Seção 7: Checklist Final -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">done_all</span>
+                    Checklist de Verificação Final
+                </h2>
+                
+                <div class="test-card">
+                    <h3>📌 Verificações Importantes</h3>
+                    <ul>
+                        <li>☐ Home: Clicar em contatos muda a conversa</li>
+                        <li>☐ Active: Mostra usuários mas não permite seleção</li>
+                        <li>☐ Mensagens: Aparecem e recebem auto-resposta em português</li>
+                        <li>☐ Upload: Fotos, vídeos e arquivos funcionam</li>
+                        <li>☐ Calendário: Eventos sincronizam com anotações</li>
+                        <li>☐ Tradução: Botão "More" permite mudar idioma</li>
+                        <li>☐ Logout: Botão "More" > "Logout" funciona</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Seção 8: Credenciais de Teste -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="material-icons">vpn_key</span>
+                    Credenciais de Teste
+                </h2>
+                
+                <div class="test-card">
+                    <h3>🔐 Dados para Login</h3>
+                    <p>Use as seguintes credenciais para acessar a aplicação:</p>
+                    <div class="code-block">
+Email: teste@teste.com
+Senha: senha123
+Papel: Aluno
+
+Ou tente outros dados:
+Email: professor@teste.com
+Senha: senha123
+Papel: Professor
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Seção 9: Botões de Ação -->
+            <div class="section">
+                <div class="button-group">
+                    <a href="dashboard.html" class="btn btn-primary">
+                        ▶️ Abrir Dashboard
+                    </a>
+                    <a href="index.html" class="btn btn-secondary">
+                        🏠 Ir para Home
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🚀 EduTalk - Sistema de Educação em Tempo Real | Versão 1.0</p>
+            <p>Última atualização: Dezembro 2025</p>
+        </div>
+    </div>
+</body>
+</html>
